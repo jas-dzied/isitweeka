@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup": "cd indexer && cargo build --release && cd ..",
+    "setup": "cd indexer && cargo build --release && cd .. && cd log && cargo build --release && cd ..",
+    "fetch": "curl -s -o ./indexer/cal.ics https://calendar.google.com/calendar/ical/calendar%40camphillboys.bham.sch.uk/public/basic.ics && ./log/target/release/log 'Downloaded KECHB calendar' && ./indexer/target/release/indexer ./indexer/cal.ics ./public/KECHB/calendar.json && ./log/target/release/log 'Parsed KECHB calendar' && curl -s -o ./indexer/cal.ics https://calendar.google.com/calendar/ical/calendar%40kechg.org.uk/public/basic.ics && ./log/target/release/log 'Downloaded KECHG calendar' && ./indexer/target/release/indexer ./indexer/cal.ics ./public/KECHG/calendar.json && ./log/target/release/log 'Parsed KECHG calendar'",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
